@@ -1,4 +1,4 @@
-/* ============================================
+here/* ============================================
    VARIABLES — toutes les couleurs et tailles du
    site sont définies ici. Change juste ces valeurs
    pour ajuster tout le design d'un coup.
@@ -471,6 +471,103 @@ button:focus-visible {
   margin-top: 6px;
   font-size: 0.75rem;
   opacity: 0.7;
+}
+
+/* ============================================
+   MUR DE DUAS
+   ============================================ */
+.dua-form {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 480px;
+}
+
+.dua-input,
+.dua-textarea {
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 14px 16px;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+}
+
+.dua-input:focus,
+.dua-textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.dua-input::placeholder,
+.dua-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.dua-submit {
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  padding: 12px 28px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.dua-submit:hover:not(:disabled) {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+.dua-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dua-status {
+  font-size: 0.85rem;
+  color: var(--gold);
+  min-height: 1.2em;
+}
+
+.dua-wall {
+  margin-top: 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.dua-wall-item {
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
+}
+
+.dua-wall-message {
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.dua-wall-name {
+  color: var(--gold);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+
+.dua-wall-empty {
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
 }
 
 /* ============================================
