@@ -194,6 +194,31 @@ here<!DOCTYPE html>
     </div>
   </section>
 
+  <!-- ============ MUR DE DUAS ============
+       Formulaire + liste de messages partagés entre tous les visiteurs,
+       stockés dans Firebase Firestore. Voir duas.js pour la logique. -->
+  <section class="section guestbook-section" id="mur-duas">
+    <div class="section-inner reveal">
+      <p class="section-label">Vos mots pour lui</p>
+      <h2 class="section-title">Priez pour lui</h2>
+      <p class="section-text">
+        Laissez une prière, une dou'a ou un simple mot pour Mansour.
+        Chaque message compte, et reste ici pour lui.
+      </p>
+
+      <form id="duaForm" class="dua-form">
+        <input type="text" id="duaName" class="dua-input" placeholder="Votre prénom (optionnel)" maxlength="40">
+        <textarea id="duaMessage" class="dua-textarea" placeholder="Écrivez votre prière ou votre message..." maxlength="300" required rows="3"></textarea>
+        <button type="submit" class="dua-submit">Envoyer</button>
+        <p class="dua-status" id="duaStatus" aria-live="polite"></p>
+      </form>
+
+      <div class="dua-wall" id="duaWall">
+        <p class="dua-wall-empty" id="duaWallEmpty">Soyez le premier à laisser un message.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ HÉRITAGE ============ -->
   <section class="section legacy-section" id="heritage">
     <div class="section-inner reveal">
@@ -231,5 +256,6 @@ here<!DOCTYPE html>
 </footer>
 
 <script src="script.js"></script>
+<script type="module" src="duas.js"></script>
 </body>
 </html>
