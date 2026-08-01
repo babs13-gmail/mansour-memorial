@@ -1,0 +1,503 @@
+/* ============================================
+   VARIABLES — toutes les couleurs et tailles du
+   site sont définies ici. Change juste ces valeurs
+   pour ajuster tout le design d'un coup.
+   ============================================ */
+:root {
+  --bg: #0b0b0d;
+  --bg-elevated: #131315;
+  --text: #f2ede4;
+  --text-muted: #9a948a;
+  --gold: #b98d4c;
+  --gold-soft: rgba(185, 141, 76, 0.35);
+  --line: rgba(255, 255, 255, 0.08);
+
+  --font-display: "Fraunces", serif;
+  --font-body: "Inter", sans-serif;
+  --font-arabic: "Amiri", serif;
+
+  --container: 720px;
+  --section-y: clamp(80px, 14vh, 160px);
+}
+
+/* ============================================
+   RESET — on repart d'une base propre plutôt que
+   de subir les styles par défaut du navigateur
+   ============================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+/* Respecte les personnes sensibles au mouvement */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus clavier toujours visible — accessibilité */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 22px 24px;
+  transition: background 0.4s ease, padding 0.4s ease, border-color 0.4s ease;
+  border-bottom: 1px solid transparent;
+}
+
+/* Ajoutée en JS quand on scrolle : fond qui apparaît */
+.nav.is-scrolled {
+  background: rgba(11, 11, 13, 0.85);
+  backdrop-filter: blur(12px);
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 36px;
+}
+
+.nav-links a {
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -4px;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after { width: 100%; }
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.nav-toggle span {
+  width: 22px; height: 1px;
+  background: var(--text);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* ============================================
+   HERO — page d'accueil
+   ============================================ */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 560px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  /* Zoom lent en continu — mouvement d'appareil photo, pas d'effet gadget */
+  animation: heroZoom 24s ease-in-out infinite alternate;
+}
+
+@keyframes heroZoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.08); }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(11, 11, 13, 0.15) 0%,
+    rgba(11, 11, 13, 0.55) 55%,
+    rgba(11, 11, 13, 0.96) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px 90px;
+  text-align: center;
+}
+
+/* Élément SIGNATURE du site : une lueur douce et lente
+   derrière le nom, symbole de "Noor" (la lumière) */
+.hero-glow {
+  position: absolute;
+  left: 50%;
+  bottom: 40px;
+  width: 340px;
+  height: 340px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, var(--gold-soft) 0%, transparent 70%);
+  filter: blur(10px);
+  opacity: 0;
+  animation: glowIn 3.5s ease forwards 0.3s;
+  pointer-events: none;
+}
+
+@keyframes glowIn {
+  to { opacity: 1; }
+}
+
+.hero-eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 8vw, 5rem);
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+}
+
+.hero-dates {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 32px;
+}
+
+.hero-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+  color: var(--text);
+  max-width: 520px;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.scroll-cue span {
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* ============================================
+   APPARITION PROGRESSIVE — classe ajoutée par
+   IntersectionObserver dans script.js
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Les enfants directs de .hero-content se révèlent en cascade */
+.hero-content .reveal:nth-child(2) { transition-delay: 0.1s; }
+.hero-content .reveal:nth-child(3) { transition-delay: 0.25s; }
+.hero-content .reveal:nth-child(4) { transition-delay: 0.4s; }
+
+/* ============================================
+   SECTIONS — structure commune
+   ============================================ */
+.section {
+  padding: var(--section-y) 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin-bottom: 32px;
+}
+
+.section-text {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  max-width: 62ch;
+}
+
+.bio-text p {
+  color: var(--text-muted);
+  font-size: 1.08rem;
+  margin-bottom: 22px;
+  max-width: 62ch;
+}
+
+/* ============================================
+   VOIX OFF — lecteur audio personnalisé
+   ============================================ */
+.voice-player {
+  margin-top: 36px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  max-width: 420px;
+}
+
+.voice-btn {
+  flex-shrink: 0;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.voice-btn:hover {
+  background: var(--gold-soft);
+  transform: scale(1.04);
+}
+
+.voice-btn svg {
+  width: 20px; height: 20px;
+  fill: currentColor;
+}
+
+.voice-progress { flex: 1; }
+
+.voice-progress-track {
+  width: 100%;
+  height: 2px;
+  background: var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.voice-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--gold);
+  transition: width 0.1s linear;
+}
+
+.voice-time {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  letter-spacing: 0.02em;
+}
+
+/* ============================================
+   GALERIE
+   ============================================ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.gallery-item {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--bg-elevated);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.06);
+}
+
+/* ============================================
+   DOU'AS
+   ============================================ */
+.dua-card {
+  padding: 32px 0;
+  border-top: 1px solid var(--line);
+}
+
+.dua-card:first-of-type { border-top: none; }
+
+.dua-arabic {
+  font-family: var(--font-arabic);
+  font-size: clamp(1.4rem, 3.2vw, 1.9rem);
+  line-height: 2;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.dua-translation {
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  font-style: italic;
+}
+
+/* ============================================
+   CONCLUSION
+   ============================================ */
+.closing-section {
+  text-align: center;
+  border-bottom: none;
+}
+
+.closing-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.closing-text {
+  color: var(--text-muted);
+  max-width: 46ch;
+  margin: 0 auto;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.footer-sub {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+/* ============================================
+   RESPONSIVE — mobile
+   ============================================ */
+@media (max-width: 720px) {
+  .nav-links {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100vh;
+    width: 220px;
+    background: var(--bg-elevated);
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px;
+    gap: 28px;
+    transform: translateX(100%);
+    transition: transform 0.4s ease;
+  }
+
+  .nav-links.is-open { transform: translateX(0); }
+
+  .nav-toggle { display: flex; }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
+  }
+}
